@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    
+    {{#if cart}}
+        <h2>CartId: {{cart.id}}</h2>
+        <ul>
+            {{#each cart.products}}
+                <li>
+                    <strong>Name:</strong> {{name}}, 
+                    <strong>Price:</strong> {{price}}, 
+                    <strong>Quantity:</strong> {{quantity}}
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>No items in the cart.</p>
+    {{/if}}
+
+</body>
+</html>

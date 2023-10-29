@@ -56,15 +56,16 @@ router.get('/api/products', (req, res) => {
     res.json({ products });
 });
 
+
 //id
 router.get('/api/products', (req, res) => {
-    // Obtener los parámetros de la consulta
-    const limit = parseInt(req.query.limit) || 10; // Valor predeterminado: 10
-    const page = parseInt(req.query.page) || 1;   // Valor predeterminado: 1
+   
+    const limit = parseInt(req.query.limit) || 10; 
+    const page = parseInt(req.query.page) || 1;   
     const sort = req.query.sort === 'asc' || req.query.sort === 'desc' ? req.query.sort : null;
     const query = req.query.query ? { name: { $regex: new RegExp(req.query.query, 'i') } } : '';
 
-    // Lógica para la paginación y ordenación
+    // paginación y ordenación
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
 

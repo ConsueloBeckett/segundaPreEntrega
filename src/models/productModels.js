@@ -14,7 +14,7 @@ const productsSchema = new mongoose.Schema({
 })
 
 //exportacion de mongoose
-
+    
 const productsModel = mongoose.model(productsCollection, productsSchema)
 
 module.exports = { productsModel }

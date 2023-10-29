@@ -3,12 +3,18 @@ const { default: mongoose } = require('mongoose');
 const path = require('path');
 const productsRouter = require('./routes/products.router');
 const cartsRouter = require('./routes/carts.router');
-
+const { engine } = require("express-handlebars")
 const app = express();
 const PORT = 8080;
 
-app.use('/', productsRouter);
-app.use('/', cartsRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/carts', cartsRouter);
+
+
+app.engine("handlebars", engine())
+app.set("view engine", "handlebars")
+
+app.set("views", path.join(__dirname, "views"));
 
 mongoose.connect("mongodb+srv://mconsuelobeckett:BtMrTH620ttG7XsN@cluster1.kji7jjj.mongodb.net/?retryWrites=true&w=majority")
 .then(() => {
@@ -16,7 +22,7 @@ mongoose.connect("mongodb+srv://mconsuelobeckett:BtMrTH620ttG7XsN@cluster1.kji7j
 })
 .catch(e => {
     console.error("Fail to connect to the BD", e)
-})
+}) 
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const productsModel = require('../models/productModel')
+
 
 const carts = [] 
 
@@ -53,10 +53,6 @@ const products = [
     }
 
 ]
-
-products.forEach(product => {
-    product.productModel = ProductModel;
-});
 
 //all products
 router.post('/api/carts', (req, res) => {
