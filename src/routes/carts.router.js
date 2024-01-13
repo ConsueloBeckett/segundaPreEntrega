@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+import  express from'express'
+import router from express.Router()
 
 
 const carts = [] 
@@ -215,4 +215,4 @@ router.post('/api/carts/:cid/products', (req, res) => {
 
 
 
-module.exports = router;
+export default router;

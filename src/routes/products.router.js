@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+import  express from'express'
+import router from express.Router()
 
 const products = [
     
@@ -51,13 +51,13 @@ const products = [
     
 ]
 
-//all products
+
 router.get('/api/products', (req, res) => {
     res.json({ products });
 });
 
 
-//id
+
 router.get('/api/products', (req, res) => {
    
     const limit = parseInt(req.query.limit) || 10; 
@@ -65,11 +65,11 @@ router.get('/api/products', (req, res) => {
     const sort = req.query.sort === 'asc' || req.query.sort === 'desc' ? req.query.sort : null;
     const query = req.query.query ? { name: { $regex: new RegExp(req.query.query, 'i') } } : '';
 
-    // paginación y ordenación
+   
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
 
-   // Filtrar y ordenar los productos según los parámetros de la consulta
+  
    let filteredProducts = [...products];
    if (query) {
        filteredProducts = filteredProducts.filter(product => product.name.toLowerCase().includes(query.toLowerCase()));
@@ -83,19 +83,19 @@ router.get('/api/products', (req, res) => {
            }
        });
    }
-    // Obtener los productos para la página actual
-    const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
-// Calcular información adicional para la respuesta
+ 
+const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+
 const totalProducts = filteredProducts.length;
 const totalPages = Math.ceil(totalProducts / limit);
 const hasPrevPage = page > 1;
 const hasNextPage = page < totalPages;
 
-// Construir los enlaces directos a las páginas previa y siguiente
+
 const prevLink = hasPrevPage ? `/api/products?page=${page - 1}&limit=${limit}&sort=${sort}&query=${query}` : null;
 const nextLink = hasNextPage ? `/api/products?page=${page + 1}&limit=${limit}&sort=${sort}&query=${query}` : null;
 
-// Devolver la respuesta con el formato solicitado
+
 return res.json({
     status: 'success',
     payload: paginatedProducts,
@@ -112,7 +112,6 @@ return res.json({
 });
 
 
-//add
 router.post('/api/products', (req, res) => {
 
     const newProduct = req.body;
@@ -136,7 +135,7 @@ router.post('/api/products', (req, res) => {
 
 });
 
-//add info
+
 router.put('/api/products/:pid', (req, res) => {
     const pid = parseInt(req.params.pid);
     const updateFields = req.body;
@@ -159,7 +158,7 @@ router.put('/api/products/:pid', (req, res) => {
     return res.json(products[productIndex]);
 });
 
-//delete
+
 router.delete('/api/products/:pid', (req, res) => {
     const pid = parseInt(req.params.pid);
 
@@ -176,4 +175,4 @@ router.delete('/api/products/:pid', (req, res) => {
 });
 
 
-module.exports = router;
+export default router;
